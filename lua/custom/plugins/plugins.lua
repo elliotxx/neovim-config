@@ -133,9 +133,9 @@ return {
   -- The default mapping is gs to switch the word.
   { 'tandy1229/wordswitch.nvim' },
 
+  -- https://github.com/echasnovski/mini.nvim
   -- Library of 35+ independent Lua modules improving overall
   -- Neovim (version 0.7 and higher) experience with minimal effort.
-  -- https://github.com/echasnovski/mini.nvim
   {
     'echasnovski/mini.nvim',
     version = '*',
@@ -226,8 +226,8 @@ return {
     end,
   },
 
-  -- Free, ultrafast Copilot alternative for Vim and Neovim
   -- https://github.com/Exafunction/codeium.vim
+  -- Free, ultrafast Copilot alternative for Vim and Neovim
   {
     'Exafunction/codeium.vim',
     commit = '289eb72',
@@ -254,35 +254,8 @@ return {
     },
   },
 
-  -- -- Smooth scrolling
-  -- {
-  --   "karb94/neoscroll.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     -- All these keys will be mapped to their corresponding default scrolling animation
-  --     mappings = {
-  --       "<C-u>",
-  --       "<C-d>",
-  --       "<C-b>",
-  --       "<C-f>",
-  --       "<C-y>",
-  --       "<C-e>",
-  --       "zt",
-  --       "zz",
-  --       "zb",
-  --     },
-  --     hide_cursor = true,          -- Hide cursor while scrolling
-  --     stop_eof = true,            -- Stop at <EOF> when scrolling downwards
-  --     respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-  --     cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-  --     easing_function = "sine",    -- Default easing function
-  --     performance_mode = false,    -- Disable "Performance Mode" on all buffers
-  --   },
-  --   config = function(_, opts)
-  --     require("neoscroll").setup(opts)
-  --   end,
-  -- },
-
+  -- https://github.com/folke/snacks.nvim
+  -- 🍿 A collection of small QoL plugins for Neovim
   {
     'folke/snacks.nvim',
     priority = 1000,
