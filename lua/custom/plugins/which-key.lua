@@ -26,7 +26,7 @@ return {
       winblend = 0,
     },
   },
-  config = function(_, opts)
+  config = function()
     local wk = require 'which-key'
 
     -- Visual mode mappings with new spec format
@@ -39,24 +39,17 @@ return {
       { '<leader>Ri', "<Esc><cmd>lua require('refactoring').refactor('Inline Variable')<CR>", desc = 'Inline Variable' },
       { '<leader>Rr', "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", desc = 'Refactor Prompt' },
       { '<leader>Rv', "<Esc><cmd>lua require('refactoring').refactor('Extract Variable')<CR>", desc = 'Extract Variable' },
-      { '<leader>u', group = 'Utils' },
-      { '<leader>ua', "<Esc><cmd>'<,'>CodeSnapASCII<cr>", desc = 'Save selected code snapshot in ASCII into clipboard' },
-      { '<leader>uc', "<Esc><cmd>'<,'>CodeSnap<cr>", desc = 'Save selected code snapshot into clipboard' },
     }
 
     -- Normal mode mappings with new spec format
     wk.add {
       mode = { 'n' },
-      { '<leader>;', '<cmd>Alpha<CR>', desc = 'Dashboard' },
+      { '<leader>;', '<cmd>lua Snacks.dashboard()<CR>', desc = 'Dashboard' },
       { '<leader>w', '<cmd>w!<CR>', desc = 'Save' },
       { '<leader>q', '<cmd>confirm q<CR>', desc = 'Quit' },
       { '<leader>/', '<Plug>(comment_toggle_linewise_current)', desc = 'Comment toggle' },
       { '<leader>x', '<cmd>BufferKill<CR>', desc = 'Close Buffer' },
-      {
-        '<leader>f',
-        "<cmd>let $FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git' | lua require('telescope.builtin').find_files()<CR>",
-        desc = 'Find File',
-      },
+      { '<leader>f', '<cmd>FzfLua files<CR>', desc = 'Find File' },
       { '<leader>h', '<cmd>nohlsearch<CR>', desc = 'No Highlight' },
       { '<leader>o', '<cmd>SymbolsOutline<cr>', desc = 'SymbolsOutline' },
       { '<leader>p', '<cmd>Telescope projects<cr>', desc = 'Projects' },
@@ -64,7 +57,7 @@ return {
       { '<leader>E', '<cmd>lua MiniFiles.open()<CR>', desc = 'MiniFiles Explorer' },
 
       { '<leader>b', group = 'Buffers' },
-      { '<leader>bf', '<cmd>Telescope buffers<cr>', desc = 'Find buffers' },
+      { '<leader>bf', '<cmd>FzfLua buffers<cr>', desc = 'Find buffers' },
       { '<leader>bj', '<cmd>BufferLineCycleNext<cr>', desc = 'Next' },
       { '<leader>bk', '<cmd>BufferLineCyclePrev<cr>', desc = 'Previous' },
       { '<leader>be', '<cmd>BufferLinePickClose<cr>', desc = 'Pick which buffer to close' },
@@ -103,7 +96,7 @@ return {
       { '<leader>g', group = 'Git' },
       { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
       { '<leader>gh', '<cmd>DiffviewFileHistory<cr>', desc = 'Project Git History' },
-      { '<leader>gf', '<cmd>Telescope git_status<cr>', desc = 'Find changed file' },
+      { '<leader>gf', '<cmd>FzfLua git_status<cr>', desc = 'Find changed file' },
       { '<leader>gF', '<cmd>DiffviewFileHistory %<cr>', desc = 'File Git History' },
       { '<leader>gj', "<cmd>lua require 'gitsigns'.next_hunk({navigation_message = false})<cr>", desc = 'Next Hunk' },
       { '<leader>gk', "<cmd>lua require 'gitsigns'.prev_hunk({navigation_message = false})<cr>", desc = 'Prev Hunk' },
@@ -113,9 +106,9 @@ return {
       { '<leader>gR', "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = 'Reset Buffer' },
       { '<leader>gs', "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = 'Stage Hunk' },
       { '<leader>gu', "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = 'Undo Stage Hunk' },
-      { '<leader>gb', '<cmd>Telescope git_branches<cr>', desc = 'Checkout branch' },
-      { '<leader>gc', '<cmd>Telescope git_commits<cr>', desc = 'Checkout commit' },
-      { '<leader>gC', '<cmd>Telescope git_bcommits<cr>', desc = 'Checkout commit(for current file)' },
+      { '<leader>gb', '<cmd>FzfLua git_branches<cr>', desc = 'Checkout branch' },
+      { '<leader>gc', '<cmd>FzfLua git_commits<cr>', desc = 'Checkout commit' },
+      { '<leader>gC', '<cmd>FzfLua git_bcommits<cr>', desc = 'Checkout commit(for current file)' },
       { '<leader>gd', '<cmd>Gitsigns diffthis HEAD<cr>', desc = 'Git Diff' },
 
       { '<leader>l', group = 'LSP' },
@@ -137,18 +130,17 @@ return {
       { '<leader>lR', '<cmd>LspRestart<cr>', desc = 'Lsp Restart' },
 
       { '<leader>s', group = 'Search' },
-      { '<leader>sb', '<cmd>Telescope git_branches<cr>', desc = 'Checkout branch' },
-      { '<leader>sc', '<cmd>Colors<cr>', desc = 'Colorschemes' },
-      { '<leader>sC', '<cmd>Telescope commands<cr>', desc = 'Commands' },
-      { '<leader>sf', "<cmd>let $FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git' | Files<cr>", desc = 'Find File' },
+      { '<leader>sb', '<cmd>FzfLua git_branches<cr>', desc = 'Checkout branch' },
+      { '<leader>sc', '<cmd>FzfLua colorschemes<cr>', desc = 'Colorschemes' },
+      { '<leader>sC', '<cmd>FzfLua commands<cr>', desc = 'Commands' },
+      { '<leader>sf', '<cmd>FzfLua files<cr>', desc = 'Find File' },
       { '<leader>sh', '<cmd>History<cr>', desc = 'History' },
       { '<leader>sH', '<cmd>Helptags<cr>', desc = 'Help tags' },
       { '<leader>sm', '<cmd>Marks<cr>', desc = 'Marks' },
-      { '<leader>sr', '<cmd>Telescope oldfiles<cr>', desc = 'Open Recent File' },
-      { '<leader>sR', '<cmd>Telescope registers<cr>', desc = 'Registers' },
-      { '<leader>sg', '<cmd>Telescope live_grep<cr>', desc = 'Live Grep' },
-      { '<leader>sk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },
-      { '<leader>sp', "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>", desc = 'Colorscheme with Preview' },
+      { '<leader>sr', '<cmd>FzfLua oldfiles<cr>', desc = 'Open Recent File' },
+      { '<leader>sR', '<cmd>FzfLua registers<cr>', desc = 'Registers' },
+      { '<leader>sg', '<cmd>FzfLua live_grep<cr>', desc = 'Live Grep' },
+      { '<leader>sk', '<cmd>FzfLua keymaps<cr>', desc = 'Keymaps' },
 
       { '<leader>t', group = 'Diagnostics' },
       { '<leader>tt', '<cmd>Lspsaga show_buf_diagnostics<cr>', desc = 'trouble' },
