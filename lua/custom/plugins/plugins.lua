@@ -302,13 +302,6 @@ return {
       statuscolumn = { enabled = true },
       words = { enabled = true },
     },
-    indent = { enabled = true },
-    input = { enabled = true },
-    notifier = { enabled = true },
-    quickfile = { enabled = true },
-    scroll = { enabled = false },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
   },
 
   -- https://github.com/OXY2DEV/markview.nvim
