@@ -23,8 +23,8 @@ return {
 
     pickers = {
       find_files = {
-        hidden = true, -- Show hidden files in find_files
-        no_ignore = true, -- Show .gitignore files in find_files
+        hidden = false, -- Show hidden files in find_files
+        no_ignore = false, -- Show .gitignore files in find_files
         previewer = false,
         layout_config = {
           height = 0.4,
@@ -53,7 +53,7 @@ return {
         case_mode = 'smart_case',
       },
       projects = {
-        hidden_files = true,
+        hidden_files = false,
         theme = 'dropdown',
       },
     },
@@ -70,7 +70,7 @@ return {
     require('project_nvim').setup {
       detection_methods = { 'pattern', 'lsp' },
       patterns = { '.git', 'package.json', 'Cargo.toml', 'go.mod' },
-      show_hidden = true,
+      show_hidden = false,
     }
   end,
 }
