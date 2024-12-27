@@ -43,11 +43,6 @@ M.setup = function()
   keymap('n', 'gr', '<cmd>Lspsaga finder ref<CR>', { desc = 'Find references' })
   keymap('n', 'gI', '<cmd>Lspsaga finder imp<CR>', { desc = 'Find implementations' })
   keymap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { desc = 'Show signature help' })
-
-  -- -- Centered movements
-  -- keymap("n", "k", "kzz", { desc = "Move up and center" })
-  -- keymap("n", "j", "jzz", { desc = "Move down and center" })
-  -- keymap("n", "n", "nzzzv", { desc = "Next search result and center" })
 end
 
 return M
