@@ -157,7 +157,16 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- [[ Basic Keymaps ]]
+-- Check if running inside VSCode
+local is_vscode = vim.g.vscode ~= nil
+
+-- If in VSCode, load VSCode-specific config and exit
+if is_vscode then
+    require('ide.vscode').setup()
+    return
+end
+
+--[[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -190,7 +199,7 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- [[ Basic Autocommands ]]
+--[[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text
@@ -210,7 +219,7 @@ require('custom.basic').setup()
 -- Load custom keybindings (will override default keymaps)
 require('custom.keybindings').setup()
 
--- [[ Install `lazy.nvim` plugin manager ]]
+--[[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -222,7 +231,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
+--[[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
 --    :Lazy
