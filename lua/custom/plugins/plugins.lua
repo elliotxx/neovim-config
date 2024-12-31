@@ -301,4 +301,15 @@ return {
       require('fzf-lua').setup {}
     end,
   },
+
+  -- https://github.com/elliotxx/copypath.nvim
+  -- Copy path with line number, supporting both local paths and repository URLs.
+  {
+    'elliotxx/copypath.nvim',
+    opts = {
+      default_mappings = true, -- Set to false to disable default mappings
+      mapping = 'Y', -- Default mapping to trigger copy
+      notify = true, -- Show notification when path is copied
+    },
+  },
 }
