@@ -18,6 +18,7 @@ M.setup = function()
   keymap('n', '<D-s>', ':w<CR>', { desc = 'Save file' })
   keymap('n', '|', ':vsplit<CR>', { desc = 'Vertical split' })
   keymap('n', '-', ':split<CR>', { desc = 'Horizontal split' })
+  keymap('n', 'Y', ':lua require("custom.utils").copy_path_with_line()<CR>', { desc = 'Copy file path with line' })
 
   -- Window navigation in iTerm2
   keymap('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
