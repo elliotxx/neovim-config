@@ -157,6 +157,7 @@ return {
       { '<leader>rs', "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", desc = 'Search' },
 
       { '<leader>u', group = 'Utils' },
+      { '<leader>um', '<cmd>Markview<CR>', desc = 'Toggle Markview' },
     }
   end,
 }
