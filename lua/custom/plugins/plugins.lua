@@ -358,12 +358,15 @@ return {
         },
       },
       {
-        -- Make sure to set this up properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
+        'OXY2DEV/markview.nvim',
+        enabled = true,
+        lazy = false,
+        ft = { 'markdown', 'norg', 'rmd', 'org', 'vimwiki', 'Avante' },
         opts = {
-          file_types = { 'markdown', 'Avante' },
+          filetypes = { 'markdown', 'norg', 'rmd', 'org', 'vimwiki', 'Avante' },
+          buf_ignore = {},
+          max_length = 99999,
         },
-        ft = { 'markdown', 'Avante' },
       },
     },
   },

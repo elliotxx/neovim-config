@@ -42,7 +42,6 @@
   "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
   "refactoring.nvim": { "branch": "master", "commit": "2db6d378e873de31d18ade549c2edba64ff1c2e3" },
-  "render-markdown.nvim": { "branch": "main", "commit": "16369540a005ad0cf267498162aedca6dfca1b9c" },
   "smear-cursor.nvim": { "branch": "main", "commit": "051fe67e0081da273e07cd33ab8357d6b720f08f" },
   "snacks.nvim": { "branch": "main", "commit": "ee08b1f32e06904318f8fa24714557d3abcdd215" },
   "symbols-outline.nvim": { "branch": "master", "commit": "564ee65dfc9024bdde73a6621820866987cbb256" },
