@@ -273,8 +273,10 @@ return {
     opts = {
       provider = 'openai',
       openai = {
-        endpoint = 'https://api.deepseek.com/',
-        model = 'deepseek-chat',
+        -- endpoint = 'https://api.deepseek.com/',
+        -- model = 'deepseek-chat',
+        endpoint = 'https://api.siliconflow.cn/',
+        model = 'deepseek-ai/DeepSeek-R1-Distill-Qwen-14B',
         temperature = 0,
         max_tokens = 4096,
       },
