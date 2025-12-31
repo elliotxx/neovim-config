@@ -263,69 +263,120 @@ return {
     },
   },
 
-  -- https://github.com/yetone/avante.nvim
+  -- https://github.com/yetone/avante.nvim (已注释)
   -- Use your Neovim like using Cursor AI IDE!
+  -- {
+  --   'yetone/avante.nvim',
+  --   event = 'VeryLazy',
+  --   lazy = false,
+  --   version = false, -- set this to "*" if you want to always pull the latest change, false to update on release
+  --   opts = {
+  --     provider = 'openai',
+  --     openai = {
+  --       -- endpoint = 'https://api.deepseek.com/',
+  --       -- model = 'deepseek-chat',
+  --       endpoint = 'https://api.siliconflow.cn/',
+  --       model = 'deepseek-ai/DeepSeek-R1-Distill-Qwen-14B',
+  --       temperature = 0,
+  --       max_tokens = 4096,
+  --     },
+  --     behaviour = {
+  --       auto_suggestions = false, -- Experimental stage
+  --       auto_set_highlight_group = true,
+  --       auto_set_keymaps = true,
+  --       auto_apply_diff_after_generation = false,
+  --       support_paste_from_clipboard = true,
+  --       minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
+  --     },
+  --   },
+  --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --   build = 'make',
+  --   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  --   dependencies = {
+  --     'stevearc/dressing.nvim',
+  --     'nvim-lua/plenary.nvim',
+  --     'MunifTanjim/nui.nvim',
+  --     --- The below dependencies are optional,
+  --     'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
+  --     'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+  --     'zbirenbaum/copilot.lua', -- for providers='copilot'
+  --     {
+  --       -- support for image pasting
+  --       'HakonHarnes/img-clip.nvim',
+  --       event = 'VeryLazy',
+  --       opts = {
+  --         -- recommended settings
+  --         default = {
+  --           embed_image_as_base64 = false,
+  --           prompt_for_file_name = false,
+  --           drag_and_drop = {
+  --             insert_mode = true,
+  --           },
+  --           -- required for Windows users
+  --           use_absolute_path = true,
+  --         },
+  --       },
+  --     },
+  --     {
+  --       'OXY2DEV/markview.nvim',
+  --       enabled = true,
+  --       lazy = false,
+  --       ft = { 'markdown', 'norg', 'rmd', 'org', 'vimwiki', 'Avante' },
+  --       opts = {
+  --         filetypes = { 'markdown', 'norg', 'rmd', 'org', 'vimwiki', 'Avante' },
+  --         buf_ignore = {},
+  --         max_length = 99999,
+  --       },
+  --     },
+  --   },
+  -- },
+
+  
+  -- https://github.com/coder/claudecode.nvim
+  -- Claude Code integration for Neovim
   {
-    'yetone/avante.nvim',
-    event = 'VeryLazy',
-    lazy = false,
-    version = false, -- set this to "*" if you want to always pull the latest change, false to update on release
-    opts = {
-      provider = 'openai',
-      openai = {
-        -- endpoint = 'https://api.deepseek.com/',
-        -- model = 'deepseek-chat',
-        endpoint = 'https://api.siliconflow.cn/',
-        model = 'deepseek-ai/DeepSeek-R1-Distill-Qwen-14B',
-        temperature = 0,
-        max_tokens = 4096,
-      },
-      behaviour = {
-        auto_suggestions = false, -- Experimental stage
-        auto_set_highlight_group = true,
-        auto_set_keymaps = true,
-        auto_apply_diff_after_generation = false,
-        support_paste_from_clipboard = true,
-        minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
-      },
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = 'make',
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    'coder/claudecode.nvim',
     dependencies = {
-      'stevearc/dressing.nvim',
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      --- The below dependencies are optional,
-      'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
-      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'zbirenbaum/copilot.lua', -- for providers='copilot'
+      'folke/snacks.nvim'
+    },
+    keys = {
+      -- 主要切换键：Control + 逗号
+      { '<C-,>', '<cmd>ClaudeCodeFocus<cr>', desc = 'Claude Code', mode = { 'n', 'x' } },
+      -- 保留一些常用功能键位
+      { '<leader>a', nil, desc = 'AI/Claude Code' },
+      { '<leader>ac', '<cmd>ClaudeCode<cr>', desc = 'Toggle Claude' },
+      { '<leader>ar', '<cmd>ClaudeCode --resume<cr>', desc = 'Resume Claude' },
+      { '<leader>aC', '<cmd>ClaudeCode --continue<cr>', desc = 'Continue Claude' },
+      { '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', desc = 'Add current buffer' },
+      { '<leader>as', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = 'Send to Claude' },
       {
-        -- support for image pasting
-        'HakonHarnes/img-clip.nvim',
-        event = 'VeryLazy',
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
+        '<leader>as',
+        '<cmd>ClaudeCodeTreeAdd<cr>',
+        desc = 'Add file',
+        ft = { 'NvimTree', 'neo-tree', 'oil', 'minifiles', 'netrw' },
       },
-      {
-        'OXY2DEV/markview.nvim',
-        enabled = true,
-        lazy = false,
-        ft = { 'markdown', 'norg', 'rmd', 'org', 'vimwiki', 'Avante' },
-        opts = {
-          filetypes = { 'markdown', 'norg', 'rmd', 'org', 'vimwiki', 'Avante' },
-          buf_ignore = {},
-          max_length = 99999,
+      -- Diff management
+      { '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', desc = 'Accept diff' },
+      { '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', desc = 'Deny diff' },
+    },
+    opts = {
+      terminal = {
+        ---@module "snacks"
+        ---@type snacks.win.Config|{}
+        snacks_win_opts = {
+          position = 'float',
+          width = 0.9,
+          height = 0.9,
+          keys = {
+            claude_hide = {
+              '<C-,>',
+              function(self)
+                self:hide()
+              end,
+              mode = 't',
+              desc = 'Hide',
+            },
+          },
         },
       },
     },
