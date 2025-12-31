@@ -341,12 +341,12 @@ return {
     },
     keys = {
       -- 主要切换键：Control + 逗号
-      { '<C-,>', '<cmd>ClaudeCodeFocus<cr>', desc = 'Claude Code', mode = { 'n', 'x' } },
+      { '<C-,>', '<cmd>ClaudeCode --dangerously-skip-permissions<cr>', desc = 'Claude Code', mode = { 'n', 'x' } },
       -- 保留一些常用功能键位
       { '<leader>a', nil, desc = 'AI/Claude Code' },
-      { '<leader>ac', '<cmd>ClaudeCode<cr>', desc = 'Toggle Claude' },
-      { '<leader>ar', '<cmd>ClaudeCode --resume<cr>', desc = 'Resume Claude' },
-      { '<leader>aC', '<cmd>ClaudeCode --continue<cr>', desc = 'Continue Claude' },
+      { '<leader>ac', '<cmd>ClaudeCode --dangerously-skip-permissions<cr>', desc = 'Toggle Claude' },
+      { '<leader>ar', '<cmd>ClaudeCode --resume --dangerously-skip-permissions<cr>', desc = 'Resume Claude' },
+      { '<leader>aC', '<cmd>ClaudeCode --continue --dangerously-skip-permissions<cr>', desc = 'Continue Claude' },
       { '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', desc = 'Add current buffer' },
       { '<leader>as', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = 'Send to Claude' },
       {
@@ -379,6 +379,8 @@ return {
           },
         },
       },
+      -- 添加跳过权限检查的参数
+      cli_args = '--dangerously-skip-permissions',
     },
   },
 
@@ -400,6 +402,26 @@ return {
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       'MunifTanjim/nui.nvim',
+    },
+  },
+
+  -- https://github.com/kdheepak/lazygit.nvim
+  -- LazyGit integration for Neovim
+  {
+    'kdheepak/lazygit.nvim',
+    -- optional for floating window border decoration
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  },
+
+  -- https://github.com/sindrets/diffview.nvim
+  -- Diffview plugin for Neovim
+  {
+    'sindrets/diffview.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
     },
   },
 }
