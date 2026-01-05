@@ -94,8 +94,9 @@ return {
       { '<leader>Pd', '<cmd>Lazy debug<cr>', desc = 'Debug' },
 
       { '<leader>g', group = 'Git' },
-      { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+      { '<leader>gg', '<cmd>DiffviewOpen<cr>', desc = 'Diffview' },
       { '<leader>gh', '<cmd>DiffviewFileHistory<cr>', desc = 'Project Git History' },
+      { '<leader>ga', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
       { '<leader>gf', '<cmd>FzfLua git_status<cr>', desc = 'Find changed file' },
       { '<leader>gF', '<cmd>DiffviewFileHistory %<cr>', desc = 'File Git History' },
       { '<leader>gj', "<cmd>lua require 'gitsigns'.next_hunk({navigation_message = false})<cr>", desc = 'Next Hunk' },
