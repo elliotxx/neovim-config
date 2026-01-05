@@ -108,7 +108,8 @@ return {
       { '<leader>gs', "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = 'Stage Hunk' },
       { '<leader>gu', "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = 'Undo Stage Hunk' },
       { '<leader>gb', '<cmd>FzfLua git_branches<cr>', desc = 'Checkout branch' },
-      { '<leader>gc', '<cmd>FzfLua git_commits<cr>', desc = 'Checkout commit' },
+      { '<leader>gc', '<cmd>DiffviewClose<cr>', desc = 'Close Diffview' },
+      { '<leader>gi', '<cmd>FzfLua git_commits<cr>', desc = 'Checkout commit' },
       { '<leader>gC', '<cmd>FzfLua git_bcommits<cr>', desc = 'Checkout commit(for current file)' },
       { '<leader>gd', '<cmd>Gitsigns diffthis HEAD<cr>', desc = 'Git Diff' },
 
