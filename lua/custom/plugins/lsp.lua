@@ -61,7 +61,6 @@ return {
                       enabled = true,
                       settings = {
                         url = formatter_path,
-                        profile = 'Alipay Convention', -- 硬编码 profile，注意：不同项目的 Formatter.xml 中 profile 名称可能不同，如需切换项目需手动修改
                       },
                     },
                   },
