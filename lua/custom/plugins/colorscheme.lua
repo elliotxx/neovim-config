@@ -20,7 +20,7 @@ return {
     lazy = false,
     priority = 1000,
     ---@type solarized.config
-    opts = {},
+    opts = { transparent = { enabled = false } },
     config = function()
       vim.o.termguicolors = true
       vim.o.background = 'light'

@@ -447,42 +447,6 @@ return {
           },
         },
       }
-
-      -- TokyoNight 配色适配的 Diffview 高亮
-      local colors = {
-        bg = '#1a1b26',
-        fg = '#c0caf5',
-        fg_dark = '#737aa2',
-        blue = '#7aa2f7',
-        cyan = '#7dcfff',
-        green = '#73daca',
-        orange = '#ff9e64',
-        red = '#f7768e',
-        magenta = '#bb9af7',
-        yellow = '#e0af68',
-      }
-
-      -- 文件面板高亮
-      vim.api.nvim_set_hl(0, 'DiffviewFilePanelTitle', { fg = colors.blue, bold = true })
-      vim.api.nvim_set_hl(0, 'DiffviewFilePanelCounter', { fg = colors.fg_dark, bold = true })
-      vim.api.nvim_set_hl(0, 'DiffviewFilePanelFileName', { link = 'Directory' })
-      vim.api.nvim_set_hl(0, 'DiffviewFilePanelSelected', { link = 'Visual' })
-      vim.api.nvim_set_hl(0, 'DiffviewFilePanelPath', { fg = colors.fg_dark })
-      vim.api.nvim_set_hl(0, 'DiffviewFilePanelInsertions', { fg = colors.green })
-      vim.api.nvim_set_hl(0, 'DiffviewFilePanelDeletions', { fg = colors.red })
-
-      -- 状态高亮
-      vim.api.nvim_set_hl(0, 'DiffviewStatusAdded', { fg = colors.green })
-      vim.api.nvim_set_hl(0, 'DiffviewStatusModified', { fg = colors.yellow })
-      vim.api.nvim_set_hl(0, 'DiffviewStatusDeleted', { fg = colors.red })
-      vim.api.nvim_set_hl(0, 'DiffviewStatusRenamed', { fg = colors.blue })
-      vim.api.nvim_set_hl(0, 'DiffviewStatusCopied', { fg = colors.cyan })
-
-      -- 差异内容高亮（使用柔和的背景色与主题协调）
-      vim.api.nvim_set_hl(0, 'DiffviewDiffAdd', { bg = '#2d4036', fg = '#9ece6a' })
-      vim.api.nvim_set_hl(0, 'DiffviewDiffChange', { bg = '#403c30', fg = '#e0af68' })
-      vim.api.nvim_set_hl(0, 'DiffviewDiffDelete', { bg = '#402c30', fg = '#f7768e' })
-      vim.api.nvim_set_hl(0, 'DiffviewDiffText', { bg = '#3c3e42', fg = '#7aa2f7' })
     end,
   },
 }
