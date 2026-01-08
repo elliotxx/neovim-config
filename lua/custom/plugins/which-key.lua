@@ -41,14 +41,14 @@ return {
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_option(buf, 'filetype', 'git')
 
-      local width = 80
-      local height = 20
+      local width = 60
+      local height = math.floor(vim.o.lines * 0.7)
 
       local win = vim.api.nvim_open_win(buf, false, {
         relative = 'editor',
         width = width,
         height = height,
-        col = math.floor((vim.o.columns - width) / 2),
+        col = vim.o.columns - width - 2,
         row = math.floor((vim.o.lines - height) / 2),
         style = 'minimal',
         border = 'single',
@@ -98,11 +98,11 @@ return {
           timer:close()
 
           if exit_code == 0 then
-            update_title('Git ACP - ✓ 完成')
+            update_title 'Git ACP - ✓ 完成'
             -- 使用 nvim_echo 直接显示，绕过 noice
             vim.api.nvim_echo({ { '✓ git acp 执行成功', 'MoreMsg' } }, false, {})
           else
-            update_title('Git ACP - ✗ 失败')
+            update_title 'Git ACP - ✗ 失败'
             vim.api.nvim_echo({ { '✗ git acp 执行失败 (退出码: ' .. exit_code .. ')', 'ErrorMsg' } }, false, {})
           end
 
@@ -124,8 +124,8 @@ return {
             vim.fn.jobstop(job_id)
             -- 延迟到主线程执行
             vim.schedule(function()
-              write_line('[超时，已自动终止]')
-              update_title('Git ACP - ✗ 超时')
+              write_line '[超时，已自动终止]'
+              update_title 'Git ACP - ✗ 超时'
               vim.notify('✗ git acp 执行超时', vim.log.levels.ERROR)
             end)
           end
@@ -138,8 +138,8 @@ return {
         end, 500)
       else
         timer:close()
-        write_line('[无法启动 git acp]')
-        notify.error('✗ 无法启动 git acp')
+        write_line '[无法启动 git acp]'
+        notify.error '✗ 无法启动 git acp'
       end
     end
 
