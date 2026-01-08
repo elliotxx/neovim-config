@@ -53,7 +53,7 @@ return {
 
             -- 检查 Formatter.xml 是否存在
             if vim.uv.fs_stat(formatter_path) then
-              print('Using formatter: ' .. formatter_path)
+              vim.notify('Using formatter: ' .. formatter_path, vim.log.levels.INFO)
               client.notify('workspace/didChangeConfiguration', {
                 settings = {
                   java = {

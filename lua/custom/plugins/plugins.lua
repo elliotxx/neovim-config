@@ -23,6 +23,7 @@ return {
   -- Support for various common refactoring operations
   {
     'ThePrimeagen/refactoring.nvim',
+    event = 'VeryLazy',
     config = function()
       require('refactoring').setup {
         prompt_func_return_type = {
@@ -415,6 +416,7 @@ return {
   -- LazyGit integration for Neovim
   {
     'kdheepak/lazygit.nvim',
+    cmd = 'LazyGit',
     -- optional for floating window border decoration
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -425,6 +427,7 @@ return {
   -- Diffview plugin for Neovim
   {
     'sindrets/diffview.nvim',
+    cmd = 'DiffviewOpen',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',

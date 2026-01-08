@@ -20,6 +20,8 @@ M.setup = function()
   keymap('n', '-', ':split<CR>', { desc = 'Horizontal split' })
 
   -- Window navigation in iTerm2
+  -- 注意：<C-j> 和 <C-k> 覆盖了 init.lua 中的窗口导航功能，改为快速上下移动 5 行
+  -- 如需窗口导航，使用标准快捷键 <C-w> + hjkl
   keymap('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
   keymap('n', '<C-j>', '5j', { desc = 'Move down 5 lines' })
   keymap('n', '<C-k>', '5k', { desc = 'Move up 5 lines' })

@@ -29,6 +29,120 @@ return {
   config = function()
     local wk = require 'which-key'
 
+    -- Git ACP function
+    _G.GitAcp = function()
+      vim.notify('执行 git acp 中...', vim.log.levels.INFO)
+
+      local timer = vim.loop.new_timer()
+      local timeout = 30000
+      local finished = false
+
+      -- 创建缓冲区和窗口
+      local buf = vim.api.nvim_create_buf(false, true)
+      vim.api.nvim_buf_set_option(buf, 'filetype', 'git')
+
+      local width = 80
+      local height = 20
+
+      local win = vim.api.nvim_open_win(buf, false, {
+        relative = 'editor',
+        width = width,
+        height = height,
+        col = math.floor((vim.o.columns - width) / 2),
+        row = math.floor((vim.o.lines - height) / 2),
+        style = 'minimal',
+        border = 'single',
+        title = 'Git ACP',
+        title_pos = 'center',
+      })
+
+      local lines = {}
+      local write_line = function(text)
+        if not vim.api.nvim_buf_is_valid(buf) then
+          return
+        end
+        table.insert(lines, text)
+        if #lines > height then
+          table.remove(lines, 1)
+        end
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+        if vim.api.nvim_win_is_valid(win) then
+          vim.api.nvim_win_set_config(win, { title = 'Git ACP' })
+        end
+      end
+
+      local update_title = function(title)
+        if vim.api.nvim_win_is_valid(win) then
+          vim.api.nvim_win_set_config(win, { title = title })
+        end
+      end
+
+      local job_id = vim.fn.jobstart({ 'git', 'acp' }, {
+        on_stdout = function(_, data, _)
+          for _, line in ipairs(data) do
+            if line ~= '' then
+              write_line(line)
+            end
+          end
+        end,
+        on_stderr = function(_, data, _)
+          for _, line in ipairs(data) do
+            if line ~= '' then
+              write_line(line)
+            end
+          end
+        end,
+        on_exit = function(_, exit_code, _)
+          finished = true
+          timer:stop()
+          timer:close()
+
+          if exit_code == 0 then
+            update_title('Git ACP - ✓ 完成')
+            -- 使用 nvim_echo 直接显示，绕过 noice
+            vim.api.nvim_echo({ { '✓ git acp 执行成功', 'MoreMsg' } }, false, {})
+          else
+            update_title('Git ACP - ✗ 失败')
+            vim.api.nvim_echo({ { '✗ git acp 执行失败 (退出码: ' .. exit_code .. ')', 'ErrorMsg' } }, false, {})
+          end
+
+          -- 3 秒后自动关闭窗口
+          vim.defer_fn(function()
+            if vim.api.nvim_win_is_valid(win) then
+              vim.api.nvim_win_close(win, true)
+            end
+            if vim.api.nvim_buf_is_valid(buf) then
+              vim.api.nvim_buf_delete(buf, { force = true })
+            end
+          end, 3000)
+        end,
+      })
+
+      if job_id > 0 then
+        timer:start(timeout, 0, function()
+          if not finished then
+            vim.fn.jobstop(job_id)
+            -- 延迟到主线程执行
+            vim.schedule(function()
+              write_line('[超时，已自动终止]')
+              update_title('Git ACP - ✗ 超时')
+              vim.notify('✗ git acp 执行超时', vim.log.levels.ERROR)
+            end)
+          end
+        end)
+
+        vim.defer_fn(function()
+          if vim.fn.jobwait({ job_id }, 0)[1] == -1 then
+            vim.fn.chansend(job_id, '\n')
+          end
+        end, 500)
+      else
+        timer:close()
+        write_line('[无法启动 git acp]')
+        notify.error('✗ 无法启动 git acp')
+      end
+    end
+
     -- Visual mode mappings with new spec format
     wk.add {
       mode = { 'v' },
@@ -48,7 +162,7 @@ return {
       { '<leader>w', '<cmd>w!<CR>', desc = 'Save' },
       { '<leader>q', '<cmd>confirm q<CR>', desc = 'Quit' },
       { '<leader>/', '<Plug>(comment_toggle_linewise_current)', desc = 'Comment toggle' },
-      { '<leader>x', '<cmd>BufferKill<CR>', desc = 'Close Buffer' },
+      { '<leader>x', '<cmd>bdelete<CR>', desc = 'Close Buffer' },
       { '<leader>f', '<cmd>FzfLua files<CR>', desc = 'Find File' },
       { '<leader>h', '<cmd>nohlsearch<CR>', desc = 'No Highlight' },
       { '<leader>o', '<cmd>SymbolsOutline<cr>', desc = 'SymbolsOutline' },
@@ -108,6 +222,7 @@ return {
       { '<leader>gs', "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = 'Stage Hunk' },
       { '<leader>gu', "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = 'Undo Stage Hunk' },
       { '<leader>gb', '<cmd>FzfLua git_branches<cr>', desc = 'Checkout branch' },
+      { '<leader>gc', '<cmd>lua GitAcp()<cr>', desc = 'Git ACP (Auto Commit & Push)' },
       { '<leader>gx', '<cmd>DiffviewClose<cr>', desc = 'Close Diffview' },
       { '<leader>gi', '<cmd>FzfLua git_commits<cr>', desc = 'Checkout commit' },
       { '<leader>gC', '<cmd>FzfLua git_bcommits<cr>', desc = 'Checkout commit(for current file)' },
@@ -152,11 +267,6 @@ return {
       { '<leader>tl', '<cmd>TroubleToggle loclist<cr>', desc = 'loclist' },
       { '<leader>tj', '<cmd>lua vim.diagnostic.goto_next()<cr>', desc = 'Next Diagnostic' },
       { '<leader>tk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', desc = 'Prev Diagnostic' },
-
-      { '<leader>r', group = 'Replace' },
-      { '<leader>rf', "<cmd>lua require('spectre').open_file_search()<CR>", desc = 'Replace File' },
-      { '<leader>rp', "<cmd>lua require('spectre').open()<CR>", desc = 'Replace Project' },
-      { '<leader>rs', "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", desc = 'Search' },
 
       { '<leader>u', group = 'Utils' },
       { '<leader>um', '<cmd>Markview<CR>', desc = 'Toggle Markview' },
