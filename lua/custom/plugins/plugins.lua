@@ -245,6 +245,13 @@ return {
       'nvim-treesitter/nvim-treesitter',
       'nvim-tree/nvim-web-devicons',
     },
+
+    opts = function()
+      local presets = require('markview.presets').headings
+      return {
+        markdown = { headings = presets.numbered },
+      }
+    end,
   },
 
   -- https://github.com/ibhagwan/fzf-lua
