@@ -222,7 +222,13 @@ return {
       notifier = { enabled = true },
       quickfile = { enabled = true },
       scroll = { enabled = false },
-      statuscolumn = { enabled = true },
+      statuscolumn = {
+        enabled = true,
+        -- 左侧配置：移除 sign 组件以避免灯泡显示在行号左侧
+        left = { 'mark' },
+        -- 右侧配置：默认，包含 fold 和 git signs
+        -- right = { 'fold', 'git' },
+      },
       words = { enabled = true },
     },
   },
