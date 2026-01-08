@@ -2,17 +2,35 @@
 Colorscheme Configuration
 ------------------------
 Multiple theme support with easy switching
-Current theme: catppuccin
+Current theme: solarized
 --]]
 
 -- Theme configuration
 local theme = {
-  name = 'catppuccin', -- Current theme: catppuccin, dracula, tokyonight
+  name = 'solarized', -- Current theme: catppuccin, dracula, tokyonight, solarized
   transparent = true, -- Enable transparent background
   italic = true, -- Enable italic comments and keywords
 }
 
 return {
+  -- Solarized theme
+  {
+    'maxmx03/solarized.nvim',
+    enabled = theme.name == 'solarized',
+    lazy = false,
+    priority = 1000,
+    ---@type solarized.config
+    opts = {},
+    config = function()
+      vim.o.termguicolors = true
+      vim.o.background = 'light'
+      require('solarized').setup(opts)
+      if theme.name == 'solarized' then
+        vim.cmd.colorscheme 'solarized'
+      end
+    end,
+  },
+
   -- Dracula theme
   {
     'Mofiqul/dracula.nvim',
