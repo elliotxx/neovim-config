@@ -427,7 +427,7 @@ return {
   -- Diffview plugin for Neovim
   {
     'sindrets/diffview.nvim',
-    cmd = 'DiffviewOpen',
+    cmd = { 'DiffviewOpen', 'DiffviewFileHistory', 'DiffviewClose' },
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
