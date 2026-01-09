@@ -71,7 +71,10 @@ return {
         -- This will find and focus the file in the active buffer every time
         -- the current file is changed while the tree is open.
         enabled = true,
+        leave_dirs_open = true, -- 保持目录展开状态
       },
+      scan_mode = 'shallow', -- 浅层扫描，减少不必要的重新渲染
+      bind_to_cwd = true, -- 绑定到当前工作目录
       window = {
         mappings = {
           ['Y'] = 'copy_selector',
