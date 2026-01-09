@@ -147,6 +147,7 @@ return {
     wk.add {
       mode = { 'v' },
       { '<leader>/', '<Plug>(comment_toggle_linewise_visual)', desc = 'Comment toggle' },
+      { '<leader>ro', "<esc><cmd>lua require('spectre').open_visual()<CR>", desc = 'Spectre search selected' },
       { '<leader>R', group = 'Refactor' },
       { '<leader>RF', "<Esc><cmd>lua require('refactoring').refactor('Extract Function To File')<CR>", desc = 'Extract Function To File' },
       { '<leader>Rf', "<Esc><cmd>lua require('refactoring').refactor('Extract Function')<CR>", desc = 'Extract Function' },
@@ -270,6 +271,10 @@ return {
 
       { '<leader>u', group = 'Utils' },
       { '<leader>um', '<cmd>Markview<CR>', desc = 'Toggle Markview' },
+      { '<leader>r', group = 'Spectre' },
+      { '<leader>rp', "<cmd>lua require('spectre').toggle()<CR>", desc = 'Toggle Spectre' },
+      { '<leader>rf', "<cmd>lua require('spectre').open_file_search({select_word=true})<CR>", desc = 'Search in file' },
+      { '<leader>rw', "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", desc = 'Search word' },
     }
   end,
 }
