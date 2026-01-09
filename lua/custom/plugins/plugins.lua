@@ -262,7 +262,27 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       -- calling `setup` is optional for customization
-      require('fzf-lua').setup {}
+      require('fzf-lua').setup {
+        -- 处理中文文件名的配置
+        files = {
+          cmd = 'fd --type f --hidden --follow --exclude .git --exclude node_modules --color=always',
+          multipart = true,
+        },
+        git = {
+          status = {
+            cmd = 'git -c core.quotepath=false status --short --untracked-files=all',
+            previewer = 'builtin',
+          },
+        },
+        -- 确保 fzf 命令使用正确的编码
+        fzf_opts = {
+          ['--ansi'] = '',
+          ['--unicode'] = '',
+        },
+        -- 处理文件名中的特殊字符
+        file_icons = true,
+        git_icons = true,
+      }
     end,
   },
 
