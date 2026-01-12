@@ -53,6 +53,8 @@ return {
       end,
     },
     filesystem = {
+      -- 禁用自动折叠/收缩
+      reconcile_level = false,
       filtered_items = {
         hide_dotfiles = false,
         hide_gitignored = false,
