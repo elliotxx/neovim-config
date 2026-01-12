@@ -4,7 +4,11 @@ return {
     { 'folke/snacks.nvim', opts = { input = {}, picker = {}, terminal = {} } },
   },
   config = function()
-    vim.g.opencode_opts = {}
+    vim.g.opencode_opts = {
+      provider = {
+        cmd = 'opencode --port',
+      },
+    }
 
     vim.o.autoread = true
 
