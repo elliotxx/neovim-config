@@ -157,6 +157,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Enable true color support
+vim.o.termguicolors = true
+
 -- Check if running inside VSCode
 local is_vscode = vim.g.vscode ~= nil
 

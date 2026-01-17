@@ -77,4 +77,4 @@ return {
 通过 Mason 管理安装，LSPconfig 配置客户端。主 LSP 配置在 `init.lua` 中，额外功能通过 `custom/plugins/lsp.lua` 扩展。
 
 ## Git 集成
-使用 LazyGit 和 Diffview 双工具，Diffview 配置了 TokyoNight 主题高亮。
+使用 LazyGit 和 Diffview 双工具，Diffview 使用当前配色主题的高亮。

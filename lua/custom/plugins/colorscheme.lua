@@ -8,7 +8,6 @@ Current theme: solarized
 -- Theme configuration
 local theme = {
   name = 'solarized', -- Current theme: catppuccin, dracula, tokyonight, solarized
-  transparent = true, -- Enable transparent background
   italic = true, -- Enable italic comments and keywords
 }
 
@@ -20,11 +19,12 @@ return {
     lazy = false,
     priority = 1000,
     ---@type solarized.config
-    opts = { transparent = { enabled = false } },
+    opts = {
+      transparent = { enabled = false },
+    },
     config = function()
       require('solarized').setup(opts)
       if theme.name == 'solarized' then
-        vim.o.termguicolors = true
         vim.o.background = 'light'
         vim.cmd.colorscheme 'solarized'
       end
