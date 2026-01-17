@@ -270,7 +270,6 @@ return {
       { '<leader>tk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', desc = 'Prev Diagnostic' },
 
       { '<leader>u', group = 'Utils' },
-      { '<leader>um', '<cmd>Markview<CR>', desc = 'Toggle Markview' },
       { '<leader>r', group = 'Spectre' },
       { '<leader>rp', "<cmd>lua require('spectre').toggle()<CR>", desc = 'Toggle Spectre' },
       { '<leader>rf', "<cmd>lua require('spectre').open_file_search({select_word=true})<CR>", desc = 'Search in file' },

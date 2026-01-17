@@ -234,26 +234,6 @@ return {
     },
   },
 
-  -- https://github.com/OXY2DEV/markview.nvim
-  -- ☄️ Highly customisable markdown(latex & inline html) previewer for Neovim
-  {
-    'OXY2DEV/markview.nvim',
-    lazy = false, -- Recommended
-    -- ft = "markdown" -- If you decide to lazy-load anyway
-
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
-    },
-
-    opts = function()
-      local presets = require('markview.presets').headings
-      return {
-        markdown = { headings = presets.numbered },
-      }
-    end,
-  },
-
   -- https://github.com/ibhagwan/fzf-lua
   -- Improved fzf.vim written in lua
   {
