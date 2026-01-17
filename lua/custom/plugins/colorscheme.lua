@@ -22,10 +22,10 @@ return {
     ---@type solarized.config
     opts = { transparent = { enabled = false } },
     config = function()
-      vim.o.termguicolors = true
-      vim.o.background = 'light'
       require('solarized').setup(opts)
       if theme.name == 'solarized' then
+        vim.o.termguicolors = true
+        vim.o.background = 'light'
         vim.cmd.colorscheme 'solarized'
       end
     end,
