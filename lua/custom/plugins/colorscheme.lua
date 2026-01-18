@@ -7,7 +7,7 @@ Current theme: solarized
 
 -- Theme configuration
 local theme = {
-  name = 'solarized', -- Current theme: catppuccin, dracula, tokyonight, solarized
+  name = 'catppuccin', -- Current theme: catppuccin, dracula, tokyonight, solarized
   italic = true, -- Enable italic comments and keywords
 }
 
