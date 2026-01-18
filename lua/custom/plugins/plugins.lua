@@ -353,26 +353,50 @@ return {
     dependencies = {
       'folke/snacks.nvim'
     },
-    keys = {
-      -- 主要切换键：Control + 逗号
-      { '<C-,>', '<cmd>ClaudeCode --dangerously-skip-permissions<cr>', desc = 'Claude Code', mode = { 'n', 'x' } },
-      -- 保留一些常用功能键位
-      { '<leader>a', nil, desc = 'AI/Claude Code' },
-      { '<leader>ac', '<cmd>ClaudeCode --dangerously-skip-permissions<cr>', desc = 'Toggle Claude' },
-      { '<leader>ar', '<cmd>ClaudeCode --resume --dangerously-skip-permissions<cr>', desc = 'Resume Claude' },
-      { '<leader>aC', '<cmd>ClaudeCode --continue --dangerously-skip-permissions<cr>', desc = 'Continue Claude' },
-      { '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', desc = 'Add current buffer' },
-      { '<leader>as', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = 'Send to Claude' },
-      {
+    keys = function()
+      local claude_providers = vim.env.HOME .. '/.cc-switch/provider-configs'
+      local providers = {
+        { key = 'c1', name = 'DeepSeek V3.2', file = '___AI___DeepSeek_V3_2.json' },
+        { key = 'c2', name = 'GLM-4.7 (灵汐)', file = '_____GLM_4_7.json' },
+        { key = 'c3', name = 'GLM-4.7 (硅基流动)', file = '_____GLM_4_7.json' },
+        { key = 'c4', name = 'Minimax', file = 'Minimax.json' },
+        { key = 'c5', name = 'Zhipu GLM', file = 'Zhipu_GLM.json' },
+        { key = 'c6', name = 'GLM-4.7 (矽塔)', file = '______GLM_4_7.json' },
+        { key = 'c7', name = 'DeepSeek3.2 (矽塔)', file = '______DeepSeek3_2.json' },
+      }
+      local keys = {}
+
+      -- Provider 切换快捷键
+      for _, p in ipairs(providers) do
+        table.insert(keys, {
+          '<leader>' .. p.key,
+          '<cmd>ClaudeCode --settings ' .. claude_providers .. '/' .. p.file .. ' --dangerously-skip-permissions<cr>',
+          desc = 'Claude: ' .. p.name,
+          mode = { 'n', 'x' },
+        })
+      end
+
+      -- 保留 Control + 逗号作为默认 provider 切换
+      table.insert(keys, { '<C-,>', '<cmd>ClaudeCode --dangerously-skip-permissions<cr>', desc = 'Claude Code (默认)', mode = { 'n', 'x' } })
+
+      -- 辅助功能
+      table.insert(keys, { '<leader>a', nil, desc = 'AI/Claude' })
+      table.insert(keys, { '<leader>ar', '<cmd>ClaudeCode --resume --dangerously-skip-permissions<cr>', desc = 'Resume Claude' })
+      table.insert(keys, { '<leader>aC', '<cmd>ClaudeCode --continue --dangerously-skip-permissions<cr>', desc = 'Continue Claude' })
+      table.insert(keys, { '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', desc = 'Add buffer' })
+      table.insert(keys, { '<leader>as', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = 'Send selection' })
+      table.insert(keys, {
         '<leader>as',
         '<cmd>ClaudeCodeTreeAdd<cr>',
         desc = 'Add file',
         ft = { 'NvimTree', 'neo-tree', 'oil', 'minifiles', 'netrw' },
-      },
+      })
       -- Diff management
-      { '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', desc = 'Accept diff' },
-      { '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', desc = 'Deny diff' },
-    },
+      table.insert(keys, { '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', desc = 'Accept diff' })
+      table.insert(keys, { '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', desc = 'Deny diff' })
+
+      return keys
+    end,
     opts = {
       terminal = {
         ---@module "snacks"

@@ -33,11 +33,6 @@ return {
             cmd = "<cmd>lua require('spectre').toggle()<CR>",
             desc = 'toggle spectre',
           },
-          ['replace_cmd'] = {
-            map = '<leader>c',
-            cmd = "<cmd>lua require('spectre.actions').replace_cmd()<CR>",
-            desc = 'input replace command',
-          },
           ['show_option_menu'] = {
             map = '<leader>o',
             cmd = "<cmd>lua require('spectre').show_options()<CR>",
