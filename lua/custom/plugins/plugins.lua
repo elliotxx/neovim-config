@@ -355,13 +355,14 @@ return {
     keys = function()
       local claude_providers = vim.env.HOME .. '/.cc-switch/provider-configs'
       local providers = {
-        { key = 'c1', name = 'DeepSeek V3.2', file = '___AI___DeepSeek_V3_2.json' },
-        { key = 'c2', name = 'GLM-4.7 (灵汐)', file = 'Antchat_GLM_4_7.json' },
-        { key = 'c3', name = 'GLM-4.7 (硅基流动)', file = '_____GLM_4_7.json' },
+        { key = 'c1', name = 'DeepSeek V3.2', file = 'AIDeepSeekV.json' },
+        { key = 'c2', name = 'GLM-4.7 (灵汐)', file = 'Antchat_LX_GLM-4.7.json' },
+        { key = 'c3', name = 'GLM-4.7 (硅基流动)', file = 'SiliconFlow_GLM-4.7.json' },
         { key = 'c4', name = 'Minimax', file = 'Minimax.json' },
-        { key = 'c5', name = 'Zhipu GLM', file = 'Zhipu_GLM.json' },
-        { key = 'c6', name = 'GLM-4.7 (矽塔)', file = '______GLM_4_7.json' },
-        { key = 'c7', name = 'DeepSeek3.2 (矽塔)', file = '______DeepSeek3_2.json' },
+        { key = 'c5', name = 'Zhipu GLM', file = 'ZhipuGLM.json' },
+        { key = 'c6', name = 'GLM-4.7 (矽塔)', file = 'Antchat_ST_GLM-4.7.json' },
+        { key = 'c7', name = 'DeepSeek3.2 (矽塔)', file = 'Antchat_ST.json' },
+        { key = 'c8', name = 'Gemini (antigravity)', file = 'Geminibyantigravitytool.json' },
       }
       local keys = {}
 
