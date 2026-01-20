@@ -13,12 +13,12 @@ Keybindings:
 --]]
 
 return {
-  "kevinhwang91/nvim-ufo",
+  'kevinhwang91/nvim-ufo',
   dependencies = {
-    "kevinhwang91/promise-async",
-    "nvim-treesitter/nvim-treesitter",
+    'kevinhwang91/promise-async',
+    'nvim-treesitter/nvim-treesitter',
   },
-  event = "BufRead",
+  event = 'BufRead',
   opts = {
     -- Using treesitter as main provider
     provider_selector = function(bufnr, filetype, buftype)
@@ -31,17 +31,17 @@ return {
   },
   config = function(_, opts)
     -- Fold settings
-    vim.o.foldcolumn = '1'      -- Show fold column
-    vim.o.foldlevel = 99        -- High value to open all folds by default
-    vim.o.foldlevelstart = 99   -- Start with all folds open
-    vim.o.foldenable = true     -- Enable folding
+    vim.o.foldcolumn = '1' -- Show fold column
+    vim.o.foldlevel = 99 -- High value to open all folds by default
+    vim.o.foldlevelstart = 99 -- Start with all folds open
+    vim.o.foldenable = true -- Enable folding
 
     -- Initialize UFO
     require('ufo').setup(opts)
 
     -- Keymaps
     local keymap = vim.keymap.set
-    local ufo = require('ufo')
+    local ufo = require 'ufo'
 
     -- Global fold controls
     keymap('n', 'zR', ufo.openAllFolds, { desc = 'Open all folds' })
@@ -54,5 +54,16 @@ return {
         vim.lsp.buf.hover()
       end
     end, { desc = 'Peek fold or show hover' })
+
+    -- diffview 折叠使用纯文本
+    -- OptionSet 事件在选项变化时触发，diffview 打开时会设置 diff 选项
+    vim.api.nvim_create_autocmd('OptionSet', {
+      pattern = 'diff',
+      callback = function()
+        if vim.opt.diff:get() then
+          vim.cmd 'hi Folded guifg=NONE guibg=NONE'
+        end
+      end,
+    })
   end,
 }
