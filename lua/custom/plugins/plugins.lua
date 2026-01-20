@@ -345,19 +345,18 @@ return {
   --   },
   -- },
 
-  
   -- https://github.com/coder/claudecode.nvim
   -- Claude Code integration for Neovim
   {
     'coder/claudecode.nvim',
     dependencies = {
-      'folke/snacks.nvim'
+      'folke/snacks.nvim',
     },
     keys = function()
       local claude_providers = vim.env.HOME .. '/.cc-switch/provider-configs'
       local providers = {
         { key = 'c1', name = 'DeepSeek V3.2', file = '___AI___DeepSeek_V3_2.json' },
-        { key = 'c2', name = 'GLM-4.7 (灵汐)', file = '_____GLM_4_7.json' },
+        { key = 'c2', name = 'GLM-4.7 (灵汐)', file = 'Antchat_GLM_4_7.json' },
         { key = 'c3', name = 'GLM-4.7 (硅基流动)', file = '_____GLM_4_7.json' },
         { key = 'c4', name = 'Minimax', file = 'Minimax.json' },
         { key = 'c5', name = 'Zhipu GLM', file = 'Zhipu_GLM.json' },
