@@ -1,97 +1,89 @@
 --[[
   Custom Autocommands
   -------------------
-  自动清理 Claude Code 进程
+  自动清理终端进程和 Claude Code/MCP 服务器
 ]]
 
 local M = {}
 
--- 清理当前 Neovim 实例启动的 Claude 进程
--- 通过比较进程启动时间和当前 Neovim 实例的启动时间来避免误杀其他实例
-local function clean_claude_processes()
-  local nvim_start_time = os.time()
-  local handle = io.popen("ps aux | grep -i '[c]laude' | awk '{print $2, $3, $9}'")
-  if not handle then
-    return
-  end
-
-  local result = handle:read('*a')
-  handle:close()
-
-  local cleaned_count = 0
-  for line in result:gmatch('[^\r\n]+') do
-    local pid, cpu, start_time = line:match '(%d+)%s+(%S+)%s+(%S+)'
-    if pid and cpu then
-      -- 如果 CPU 使用率为 0 或接近 0，且不是 Ss+（会话领导者）状态，则为僵尸进程
-      local cpu_num = tonumber(cpu)
-      if cpu_num and cpu_num < 0.5 then
-        vim.loop.spawn('kill', { args = { '-9', pid } }, function(code, signal)
-          if code == 0 then
-            cleaned_count = cleaned_count + 1
-          end
-        end)
+-- 终止 Neovim 终端中启动的所有子进程
+local function kill_all_terminal_jobs()
+  -- 获取所有终端缓冲区并终止其作业
+  local buffers = vim.api.nvim_list_bufs()
+  for _, buf in ipairs(buffers) do
+    if vim.api.nvim_buf_get_option(buf, 'buftype') == 'terminal' then
+      local job_pid = vim.b[buf].terminal_job_pid
+      if job_pid then
+        -- 使用 kill 命令终止进程组
+        vim.fn.jobstart('kill -9 -' .. job_pid, { detach = true })
       end
     end
   end
-
-  if cleaned_count > 0 then
-    vim.notify('已清理 ' .. cleaned_count .. ' 个 Claude 进程', vim.log.levels.INFO)
-  end
 end
 
--- 安全清理：只清理没有终端关联的 claude 进程
-local function clean_orphaned_claude()
+-- 清理 Claude Code 相关进程（更精确的匹配）
+local function clean_claude_processes()
+  -- 匹配 claude 或 claude-code 进程，排除 grep 自身
   vim.fn.jobstart(
-    "ps aux | grep -i '[c]laude' | awk '$8 ~ /^[SR]$/ && $11 == \"claude\" {print $2}' | xargs -r kill -9 2>/dev/null",
-    {
-      on_exit = function(_, code, _)
-        if code == 0 then
-          -- 清理成功，不显示通知以免干扰
-        end
-      end,
-      detach = true,
-    }
+    "ps aux | grep -E '[c]laude(-code)?' | awk '{print $2}' | xargs -r kill -9 2>/dev/null",
+    { detach = true }
   )
 end
 
-function M.setup()
-  local augroup = vim.api.nvim_create_augroup('custom-claude-cleanup', { clear = true })
+-- 清理 MCP 服务器进程
+local function clean_mcp_processes()
+  -- 匹配常见的 MCP 服务器进程名
+  vim.fn.jobstart(
+    "ps aux | grep -E '[m]cp-[a-z]+' | awk '{print $2}' | xargs -r kill -9 2>/dev/null",
+    { detach = true }
+  )
+end
 
-  -- 在 VimLeavePre 事件中清理（即将退出时）
+-- 清理所有已知的终端启动的后台进程
+local function cleanup_all_background_processes()
+  local patterns = {
+    '[c]laude(-code)?',      -- Claude
+    '[m]cp-[a-z]+',          -- MCP servers
+    '[s]kylarkmcpserver',    -- Skylark MCP
+    '[a]ntcodemcp',          -- AntCode MCP
+    '[c]hange-framework-mcp',-- Change Framework MCP
+  }
+
+  for _, pattern in ipairs(patterns) do
+    vim.fn.jobstart(
+      string.format("ps aux | grep '%s' | awk '{print $2}' | xargs -r kill -9 2>/dev/null", pattern),
+      { detach = true }
+    )
+  end
+end
+
+function M.setup()
+  local augroup = vim.api.nvim_create_augroup('custom-process-cleanup', { clear = true })
+
+  -- 在 VimLeavePre 事件中清理所有终端作业和后台进程
   vim.api.nvim_create_autocmd('VimLeavePre', {
     group = augroup,
     callback = function()
-      clean_orphaned_claude()
+      -- 先终止所有终端作业
+      kill_all_terminal_jobs()
+      -- 再清理已知的后台进程
+      cleanup_all_background_processes()
     end,
-    desc = '清理孤立的 Claude 进程',
+    desc = '退出时清理所有终端进程和后台进程',
   })
 
-  -- 可选：在 terminal 关闭时也清理
-  -- 注意：这可能会更频繁地清理，但如果 Claude Code 正常运行应该不会被误杀
+  -- 在每个终端缓冲区关闭时清理
   vim.api.nvim_create_autocmd('TermClose', {
     group = augroup,
-    callback = function()
-      -- 延迟 100ms 清理，给正常退出的时间
-      vim.defer_fn(function()
-        clean_orphaned_claude()
-      end, 100)
-    end,
-    desc = 'Terminal 关闭时清理 Claude 进程',
-  })
-
-  -- 可选：定期清理（每 5 分钟）
-  -- 这可以作为兜底方案
-  vim.api.nvim_create_autocmd('CursorHold', {
-    group = augroup,
-    callback = function()
-      local last_cleanup = vim.b.custom_claude_last_cleanup or 0
-      local now = os.time()
-      if now - last_cleanup > 300 then -- 5 分钟
-        clean_orphaned_claude()
-        vim.b.custom_claude_last_cleanup = now
+    callback = function(event)
+      local job_pid = vim.b[event.buf].terminal_job_pid
+      if job_pid then
+        vim.defer_fn(function()
+          pcall(vim.fn.jobstart, 'kill -9 -' .. job_pid, { detach = true })
+        end, 50)
       end
     end,
-    desc = '定期清理孤立的 Claude 进程',
+    desc = '终端关闭时清理对应进程',
   })
 end
 
