@@ -177,20 +177,6 @@ return {
     end,
   },
 
-  -- https://github.com/Exafunction/codeium.vim
-  -- Free, ultrafast Copilot alternative for Vim and Neovim
-  {
-    'Exafunction/codeium.vim',
-    commit = '289eb72',
-    event = 'BufEnter',
-    config = function()
-      -- C-y will accept the suggestion completion of codeium.
-      vim.keymap.set('i', '<C-;>', function()
-        return vim.fn['codeium#Accept']()
-      end, { expr = true })
-    end,
-  },
-
   -- Cursor smear effect
   {
     'sphamba/smear-cursor.nvim',
