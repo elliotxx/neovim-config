@@ -2,13 +2,11 @@
 Colorscheme Configuration
 ------------------------
 Multiple theme support with easy switching
-Current theme: solarized
 --]]
 
 -- Theme configuration
 local theme = {
-  name = 'catppuccin', -- Current theme: catppuccin, dracula, tokyonight, solarized
-  italic = true, -- Enable italic comments and keywords
+  name = 'gruvbox', -- Current theme: cyberdream, catppuccin, dracula, tokyonight, solarized, gruvbox
 }
 
 return {
@@ -110,6 +108,60 @@ return {
       require('tokyonight').setup(opts)
       if theme.name == 'tokyonight' then
         vim.cmd.colorscheme 'tokyonight'
+      end
+    end,
+  },
+
+  -- Cyberdream theme
+  {
+    'scottmckendry/cyberdream.nvim',
+    enabled = theme.name == 'cyberdream',
+    lazy = false,
+    priority = 1000,
+    -- opts = {
+    -- },
+    config = function(_, opts)
+      require('cyberdream').setup(opts)
+      if theme.name == 'cyberdream' then
+        vim.cmd.colorscheme 'cyberdream'
+      end
+    end,
+  },
+
+  -- Gruvbox theme
+  {
+    'ellisonleao/gruvbox.nvim',
+    enabled = theme.name == 'gruvbox',
+    lazy = false,
+    priority = 1000,
+    opts = {
+      undercurl = true,
+      underline = true,
+      bold = true,
+      italic = {
+        strings = true,
+        comments = true,
+        operators = false,
+        folds = true,
+      },
+      strikethrough = true,
+      invert_selection = false,
+      invert_signs = false,
+      invert_tabline = false,
+      invert_intend_guides = false,
+      transparent = false,
+      contrast = 'hard',
+      palette_overrides = {},
+      overrides = {},
+      dim_inactive = false,
+      alt_separator = false,
+      required_plugin = false,
+    },
+    config = function(_, opts)
+      require('gruvbox').setup(opts)
+      if theme.name == 'gruvbox' then
+        vim.o.background = 'dark'
+        vim.cmd.colorscheme 'gruvbox'
       end
     end,
   },
