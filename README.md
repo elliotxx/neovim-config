@@ -300,7 +300,7 @@ A: 运行 `:Mason` 检查 LSP 是否安装，运行 `:LspInfo` 查看连接状�
 
 <div align="center">
   <p>
-    <strong>Built with ❤️ by Developer</strong><br>
+    <strong>Built with ❤️ by elliotxx</strong><br>
     <sub>现代化的 Neovim 开发环境</sub>
   </p>
 </div>
