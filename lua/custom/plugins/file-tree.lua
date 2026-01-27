@@ -55,6 +55,8 @@ return {
     filesystem = {
       -- 禁用自动折叠/收缩
       reconcile_level = false,
+      -- 不自动折叠已打开的目录
+      close_if_opened = false,
       filtered_items = {
         hide_dotfiles = false,
         hide_gitignored = false,
