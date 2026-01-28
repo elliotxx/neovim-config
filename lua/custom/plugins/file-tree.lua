@@ -53,8 +53,8 @@ return {
       end,
     },
     filesystem = {
-      -- 禁用自动折叠/收缩
-      reconcile_level = false,
+      -- 禁用自动折叠，设为 math.huge 表示不限制层级
+      reconcile_level = math.huge,
       -- 不自动折叠已打开的目录
       close_if_opened = false,
       filtered_items = {
