@@ -53,10 +53,12 @@ return {
       end,
     },
     filesystem = {
-      -- 禁用自动折叠，设为 math.huge 表示不限制层级
-      reconcile_level = math.huge,
+      -- 禁用自动折叠
+      reconcile_level = 0,
       -- 不自动折叠已打开的目录
       close_if_opened = false,
+      -- 禁用状态恢复，防止折叠状态被恢复
+      restore_state = false,
       filtered_items = {
         hide_dotfiles = false,
         hide_gitignored = false,
