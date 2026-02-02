@@ -53,10 +53,10 @@ return {
       end,
     },
     filesystem = {
-      -- 禁用自动折叠
-      reconcile_level = 0,
       -- 不自动折叠已打开的目录
       close_if_opened = false,
+      -- 不折叠任何目录
+      default_folded = false,
       -- 禁用状态恢复，防止折叠状态被恢复
       restore_state = false,
       filtered_items = {
