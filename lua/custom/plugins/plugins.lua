@@ -341,17 +341,17 @@ return {
     keys = function()
       local claude_providers = vim.env.HOME .. '/.cc-switch/provider-configs'
       local providers = {
-        { key = 'c1', name = 'DeepSeek-V3.2 (灵汐)', file = 'Antchat_LX_DeepSeek-V3.2.json' },
-        { key = 'c2', name = 'GLM-4.7 (灵汐)', file = 'Antchat_LX_GLM-4.7_GLM-4.7.json' },
-        { key = 'c3', name = 'GLM-4.7 (硅基流动 Pro/zai-org)', file = 'SiliconFlow_GLM-4.7_Pro/zai-org/GLM-4.7.json' },
-        { key = 'c4', name = 'MiniMax 2.1 (MiniMax)', file = 'Minimax_MiniMax-M2.1.json' },
-        { key = 'c5', name = 'glm-4.7 (智谱)', file = 'ZhipuGLM_glm-4.7.json' },
-        { key = 'c6', name = 'GLM-4.7 (矽塔)', file = 'Antchat_ST_GLM-4.7_GLM-4.7.json' },
-        { key = 'c7', name = 'DeepSeek-V3.2 (矽塔)', file = 'Antchat_ST_DeepSeek-V3.2.json' },
+        { key = 'c1', name = 'MiniMax-M2.1 (矽塔AG)', file = 'AG_MiniMax-M2.1.json' },
+        { key = 'c2', name = 'Kimi-K2.5 (矽塔AG)', file = 'AG_Kimi-K2.5.json' },
+        { key = 'c3', name = 'DeepSeek-V3.2 (矽塔)', file = 'Antchat_ST_DeepSeek-V3.2.json' },
+        { key = 'c4', name = 'GLM-4.7 (矽塔)', file = 'Antchat_ST_GLM-4.7_GLM-4.7.json' },
+        { key = 'c5', name = 'MiniMax-M2.1 (矽塔)', file = 'Antchat_ST_MiniMax-M2.1.json' },
+        { key = 'c6', name = 'Kimi-K2.5 (灵汐)', file = 'Antchat_LX_Kimi-K2.5.json' },
+        { key = 'c7', name = 'GLM-4.7 (灵汐)', file = 'Antchat_LX_GLM-4.7_GLM-4.7.json' },
         { key = 'c8', name = 'MiniMax-M2.1 (灵汐)', file = 'Antchat_LX_MiniMax-M2.1.json' },
-        { key = 'c9', name = 'Kimi-K2.5 (灵汐)', file = 'Antchat_LX_Kimi-K2.5.json' },
-        { key = 'c10', name = 'MiniMax-M2.1 (矽塔)', file = 'Antchat_ST_MiniMax-M2.1.json' },
-        { key = 'c11', name = 'Kimi-K2.5 (矽塔)', file = 'Antchat_ST_Kimi-K2.5.json' },
+        { key = 'c9', name = 'DeepSeek-V3.2 (灵汐)', file = 'Antchat_LX_DeepSeek-V3.2.json' },
+        { key = 'c10', name = 'MiniMax 2.1 (MiniMax)', file = 'Minimax_MiniMax-M2.1.json' },
+        { key = 'c11', name = 'glm-4.7 (智谱)', file = 'ZhipuGLM_glm-4.7.json' },
       }
       local keys = {}
 
