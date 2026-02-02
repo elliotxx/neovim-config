@@ -41,15 +41,43 @@ end
 
 -- 清理所有已知的终端启动的后台进程
 local function cleanup_all_background_processes()
-  local patterns = {
-    '[c]laude(-code)?',      -- Claude
-    '[m]cp-[a-z]+',          -- MCP servers
-    '[s]kylarkmcpserver',    -- Skylark MCP
-    '[a]ntcodemcp',          -- AntCode MCP
-    '[c]hange-framework-mcp',-- Change Framework MCP
+  -- 先用 pkill 模糊匹配清理大部分 MCP 相关进程
+  local fuzzy_patterns = {
+    'chrome-devtools-mcp',
+    'playwright-mcp',
+    'context7-mcp',
+    'unsplash-mcp',
+    'postgres-mcp',
+    'minimax-coding-plan-mcp',
+    'utoo-proxy',
+    'fastmcp',
   }
 
-  for _, pattern in ipairs(patterns) do
+  for _, pattern in ipairs(fuzzy_patterns) do
+    vim.fn.jobstart(
+      string.format("pkill -9 -f '%s' 2>/dev/null", pattern),
+      { detach = true }
+    )
+  end
+
+  -- 再用精确模式清理漏网之鱼
+  local exact_patterns = {
+    '[c]laude(-code)?',
+    '[m]cp-[a-z]+',
+    '[s]kylarkmcpserver',
+    '[a]ntcodemcp',
+    '[c]hange-framework-mcp',
+    -- npm/npx 启动的 MCP
+    'npm.*[e]xec.*[m]cp',
+    'npx.*[m]cp',
+    -- uv 启动的 MCP
+    'uv.*[m]cp',
+    'uvx.*[m]cp',
+    -- Node 启动的 MCP（通过 npx 缓存）
+    'node.*npx.*[m]cp',
+  }
+
+  for _, pattern in ipairs(exact_patterns) do
     vim.fn.jobstart(
       string.format("ps aux | grep '%s' | awk '{print $2}' | xargs -r kill -9 2>/dev/null", pattern),
       { detach = true }
