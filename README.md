@@ -290,6 +290,12 @@ A: 运行 `:Mason` 检查 LSP 是否安装，运行 `:LspInfo` 查看连接状�
 
 ---
 
+## 贡献者
+
+感谢以下开发者对本项目的贡献：
+
+- [@elrond-g](https://github.com/elrond-g) - 修复 tree-sitter 配置路径
+
 ## 致谢
 
 - [Kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) - 基础配置框架
