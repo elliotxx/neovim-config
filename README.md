@@ -22,6 +22,7 @@
 
 ## 最新更新
 
+- **[2026/02]** 重构 Claude Code 配置，独立为单独文件
 - **[2026/01]** 新增 Claude Code 集成，支持多 AI Provider 切换
 - **[2026/01]** 新增 Fzf-lua 模糊搜索，增强中文文件名支持
 - **[2026/01]** 新增 Cyberdream 主题支持
@@ -73,7 +74,7 @@ nvim
 Claude Code 直接在 Neovim 中运行，支持多个 AI Provider 切换：
 
 ```
-<C-,>     - 切换 AI Provider（8 个可选）
+<C-,>     - 切换 AI Provider（11 个可选）
 <leader>a - AI/Claude 功能菜单
 <leader>ar - Resume Claude 会话
 <leader>as - 发送选中内容到 Claude
@@ -178,6 +179,7 @@ nvim/
 │   │   ├── dashboard.lua       # 启动页配置
 │   │   └── plugins/            # 自定义插件配置
 │   │       ├── plugins.lua     # 核心插件
+│   │       ├── claudecode.lua  # AI 集成配置
 │   │       ├── colorscheme.lua # 主题配置
 │   │       ├── lsp.lua         # LSP 扩展
 │   │       ├── telescope.lua   # 模糊搜索

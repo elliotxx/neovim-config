@@ -22,7 +22,7 @@ lazy.nvim 通过 `{ import = 'custom.plugins' }` 自动加载此目录下的所�
 | `terminal.lua` | 终端集成 |
 | `fold.lua` | 代码折叠配置 |
 | `outline.lua` | 符号大纲 |
-| `opencode.lua` | OpenCode 集成 |
+| `claudecode.lua` | Claude Code 集成 |
 | `indentlines.lua` | 缩进线 |
 | `search-plane.lua` | 搜索增强 |
 
