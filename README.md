@@ -50,12 +50,28 @@
 - Neovim 0.9+
 - Nerd Font（用于显示图标）
 - Git
+- [Claude Code](https://github.com/anthropics/claude-code)（AI 集成，可选）
+- macOS 额外依赖（通过 Homebrew 安装）：
+
+```bash
+brew install fzf bat ripgrep the_silver_searcher perl universal-ctags yarn fd
+```
+
+| 工具 | 用途 |
+|------|------|
+| fzf | 模糊搜索核心 |
+| bat | 代码高亮查看 |
+| ripgrep | 快速全文搜索 |
+| the_silver_searcher | 代码搜索 (ag) |
+| universal-ctags | 代码符号索引 |
+| yarn | Markdown 预览插件 |
+| fd | 文件搜索 (Telescope 依赖) |
 
 ### 安装步骤
 
 ```bash
 # 1. 克隆仓库到 Neovim 配置目录
-git clone https://github.com/elliotxx/nvim-config ~/.config/nvim
+git clone https://github.com/elliotxx/neovim-config.git ~/.config/nvim
 
 # 2. 启动 Neovim，lazy.nvim 会自动安装插件
 nvim
@@ -64,6 +80,22 @@ nvim
 ```
 
 > **提示**: 如需自定义配置目录，可在启动时指定 `NVIM_APPNAME` 环境变量。
+
+### 可选配置
+
+**安装 Claude Code**（macOS 推荐）：
+
+```bash
+brew install --cask claude-code
+```
+
+**Zsh 添加 vi 别名**（如使用 zsh）：
+
+```bash
+# 在 ~/.zshrc 中添加
+alias vi="nvim"
+alias vim="nvim"
+```
 
 ---
 
