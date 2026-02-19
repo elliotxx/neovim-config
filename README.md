@@ -55,7 +55,7 @@
 
 ```bash
 # 1. 克隆仓库到 Neovim 配置目录
-git clone https://github.com/yourusername/nvim-config ~/.config/nvim
+git clone https://github.com/elliotxx/nvim-config ~/.config/nvim
 
 # 2. 启动 Neovim，lazy.nvim 会自动安装插件
 nvim

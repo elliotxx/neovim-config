@@ -80,7 +80,7 @@ return {
         leave_dirs_open = true, -- 保持目录展开状态
       },
       scan_mode = 'shallow', -- 浅层扫描，减少不必要的重新渲染
-      bind_to_cwd = true, -- 绑定到当前工作目录
+      bind_to_cwd = false, -- 取消绑定到当前工作目录，防止切换文件时重新渲染
       window = {
         mappings = {
           ['Y'] = 'copy_selector',
