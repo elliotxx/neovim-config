@@ -49,6 +49,9 @@ return {
 }
 ```
 
+### 插件安装位置
+**默认安装到 `lua/custom/plugins/plugins.lua`**。仅当插件需要独立的配置文件（超过 50 行或多个配置项）时才考虑单独创建文件。
+
 ## 快捷键
 
 ### Leader Keys
