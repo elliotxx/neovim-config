@@ -22,6 +22,7 @@
 
 ## 最新更新
 
+- **[2026/03]** 新增 marks.nvim，增强 marks 功能
 - **[2026/02]** 重构 Claude Code 配置，独立为单独文件
 - **[2026/01]** 新增 Claude Code 集成，支持多 AI Provider 切换
 - **[2026/01]** 新增 Fzf-lua 模糊搜索，增强中文文件名支持
@@ -144,9 +145,12 @@ Claude Code 直接在 Neovim 中运行，支持多个 AI Provider 切换：
 | `<leader>f` | 文件查找 |
 | `<leader>g` | Git |
 | `<leader>l` | LSP |
+| `<leader>P` | 插件管理 |
+| `<leader>r` | Spectre (全局替换) |
+| `<leader>R` | 重构 |
 | `<leader>s` | 搜索 |
 | `<leader>t` | 诊断 |
-| `<leader>P` | 插件管理 |
+| `<leader>u` | 实用工具 |
 
 ### 核心快捷键（不含分组）
 
@@ -259,7 +263,7 @@ return {
 | Git | gitsigns, diffview, lazygit |
 | AI | claudecode.nvim |
 | 主题 | gruvbox, catppuccin, tokyonight 等 |
-| 实用工具 | snacks.nvim, which-key, noice |
+| 实用工具 | snacks.nvim, which-key, noice, marks.nvim |
 
 ---
 
